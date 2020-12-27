@@ -52,13 +52,13 @@ Log log[LOG_NUM];//计划存储4条日志
 u32 logIndex = 0;//日志当前的下标
 
 //新增日志,追加在日志尾部
-int addToFile(FILE* pFile, u8* info);
+u32 addToFile(FILE* pFile, u8* info);
 
 //删除日志
-int delLog(u32 i);
+u32 delLog(u32 i);
 
 //读取日志
-int readLog(FILE* pFile);
+u32 readLog(FILE* pFile);
 
 
 #ifdef __cplusplus
@@ -66,6 +66,7 @@ int readLog(FILE* pFile);
 #endif
 
 #endif
+
 ```
 
 **C_for_log202012.c**
@@ -75,7 +76,7 @@ int readLog(FILE* pFile);
 #include "C_for_log202012.h"
 
 
-int addToFile(FILE* pFile, u8* info)
+u32 addToFile(FILE* pFile, u8* info)
 {
 	if (NULL == pFile)
 		return FUN_NOT_FIND_FILE;
@@ -85,31 +86,31 @@ int addToFile(FILE* pFile, u8* info)
 	
 	if(strlen(info) > 256)
 		return FUN_STR_LEN_THAN_256;
-	
+
 	strcpy(log[logIndex].log, info);
-	
+
 	time_t t;
 	t = time(NULL);
 	log[logIndex].time = time(&t);
-	
+
 	log[logIndex].statu = LOG_SAVE;
-	
+
 	logIndex++;
 	logIndex = logIndex % LOG_NUM;
-	
+
 	if (fwrite(&log, 264, LOG_NUM, pFile) == LOG_NUM)
 		return FUN_SUCCESS;
 	
 	return FUN_READ_FAIL;
 }
 
-int delLog(u32 i)
+u32 delLog(u32 i)
 {
 	log[i].statu = LOG_DEL;//没有必要因为一条数据，去重新排序数据内存
 	return FUN_SUCCESS;
 }
 
-int readLog(FILE* pFile)
+u32 readLog(FILE* pFile)
 {
 	u32 num = 0, i = 0;
 	if (NULL == pFile)
@@ -118,9 +119,9 @@ int readLog(FILE* pFile)
 	while (fread(&log, 264, LOG_NUM, pFile) > 0)
 	{
 	}
-	
-	return FUN_SUCCESS;
 
+	return FUN_SUCCESS;
+	
 }
 
 void testRead()

@@ -46,13 +46,28 @@ Log log[LOG_NUM];//计划存储4条日志
 u32 logIndex = 0;//日志当前的下标
 
 //新增日志,追加在日志尾部
-int addToFile(FILE* pFile, u8* info);
+u32 addToFile(FILE* pFile, u8* info);
 
 //删除日志
-int delLog(u32 i);
+u32 delLog(u32 i);
 
 //读取日志
-int readLog(FILE* pFile);
+u32 readLog(FILE* pFile);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #ifdef __cplusplus

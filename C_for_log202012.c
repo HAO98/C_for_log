@@ -2,7 +2,7 @@
 #include "C_for_log202012.h"
 
 
-int addToFile(FILE* pFile, u8* info)
+u32 addToFile(FILE* pFile, u8* info)
 {
 	if (NULL == pFile)
 		return FUN_NOT_FIND_FILE;
@@ -30,13 +30,13 @@ int addToFile(FILE* pFile, u8* info)
 	return FUN_READ_FAIL;
 }
 
-int delLog(u32 i)
+u32 delLog(u32 i)
 {
 	log[i].statu = LOG_DEL;//没有必要因为一条数据，去重新排序数据内存
 	return FUN_SUCCESS;
 }
 
-int readLog(FILE* pFile)
+u32 readLog(FILE* pFile)
 {
 	u32 num = 0, i = 0;
 	if (NULL == pFile)
